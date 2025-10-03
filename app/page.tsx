@@ -45,10 +45,19 @@ async function resolvePrice(symbol: string, _type: AssetType, settings: Settings
 }
 
 export default function Page() {
-  const [holdings, setHoldings] = useState<Holding[]>(() => load(STORAGE.HOLDINGS, []));
-  const [settings, setSettings] = useState<Settings>(() =>
-    load(STORAGE.SETTINGS, { baseCurrency: "CAD", useLivePrices: false, provider: "Demo", apiKeys: {} } as Settings)
+  const [holdings, setHoldings] = useState<Holding[]>(() => 
+    load(STORAGE.HOLDINGS, [])
   );
+
+  const [settings, setSettings] = useState<Settings>(() =>
+    load(STORAGE.SETTINGS, { 
+      baseCurrency: "CAD", 
+      useLivePrices: false, 
+      provider: "Demo", 
+      apiKeys: {} 
+    } as Settings)
+  );
+  const [useLive, setUseLive] = useState(false);
   const [prices, setPrices] = useState<Record<string, number>>({});
   const [busy, setBusy] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
